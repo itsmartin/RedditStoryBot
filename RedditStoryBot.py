@@ -128,7 +128,11 @@ class RedditStoryBot:
                 submission.subreddit,
                 submission.id)
 
-        if not others: return
+        if not others:
+            self.log.debug(
+                    "Submission {} ignored - no other submissions by author"
+                    .format(submission.id))
+            return
 
         self.log.info("For submission {id} by {author}, I found {n} others".format(
                     id = submission.id,
