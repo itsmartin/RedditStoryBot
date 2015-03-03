@@ -55,3 +55,6 @@ target/
 
 # Local config file
 config.py
+
+# Local database files
+*.db
