@@ -1,4 +1,4 @@
-import praw, logging, config, sqlite3, time, random, urllib
+import praw, logging, config, sqlite3, time, random, urllib, requests
 
 class RedditStoryBot:
     """A reddit bot to post links to previous submissions by a user, intended
@@ -63,7 +63,7 @@ class RedditStoryBot:
         while True:
             try:
                 self.checkNewSubmissions(self.subreddit)
-            except urllib.error.HTTPError as err:
+            except requests.exceptions.HTTPError as err:
                 self.log.error("HTTP error occurred: " + err.reason)
 
             self.log.debug("Sleeping for {} seconds".format(config.sleepTime))
