@@ -64,7 +64,7 @@ class RedditStoryBot:
             try:
                 self.checkNewSubmissions(self.subreddit)
             except requests.exceptions.HTTPError as err:
-                self.log.error("HTTP error occurred: " + err.reason)
+                self.log.error("HTTP error occurred: {}".format(str(err)))
 
             self.log.debug("Sleeping for {} seconds".format(config.sleepTime))
             time.sleep(config.sleepTime)
