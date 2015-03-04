@@ -47,7 +47,7 @@ class RedditStoryBot:
 
 
     def _initReddit(self):
-        """Set up a PRAW objects for reddit and the appropriate subreddit, and
+        """Set up PRAW objects for reddit and the appropriate subreddit, and
         log in.
         """
         self.reddit = praw.Reddit(user_agent = config.userAgent)
