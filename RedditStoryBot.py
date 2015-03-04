@@ -128,26 +128,28 @@ class RedditStoryBot:
                 submission.subreddit,
                 submission.id)
 
-        if not others:
-            self.log.debug(
-                    "Submission {} ignored - no other submissions by author"
-                    .format(submission.id))
-            return
-
         self.log.info("For submission {id} by {author}, I found {n} others".format(
                     id = submission.id,
                     n = len(others),
                     author = submission.author))
 
-        template = random.choice(config.responseTemplates)
+        if others:
+            template = random.choice(config.responseTemplates)
 
-        reply = template.format(
-                author = submission.author.name,
-                list = '\n'.join([config.responseEntry.format(
-                        title = s.title,
-                        permalink = s.permalink,
-                        score = s.score) for s in others])
-        )
+            reply = template.format(
+                    author = submission.author.name,
+                    list = '\n'.join([config.responseEntry.format(
+                            title = s.title,
+                            permalink = s.permalink,
+                            score = s.score) for s in others])
+            )
+
+        else:
+            template = random.choice(config.newSubmitterResponseTemplates)
+
+            reply = template.format(
+                    author = submission.author.name
+            )
 
 
         self.log.info("Posting response to {}".format(submission.id))

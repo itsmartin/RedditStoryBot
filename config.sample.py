@@ -34,7 +34,7 @@ sleepTime = 600
 # posts.
 flairsToIgnore = ()
 
-# The template for the bot's response. It should be a list of possible response
+# The templates for the bot's response. It should be a list of possible response
 # formats, one of which (randomly chosen) will be posted by the bot. Each
 # response format must include the following formatting placeholders:
 #
@@ -51,9 +51,21 @@ responseTemplates = [u"""**Previous stories by /u/{author}:**
 ---
 ^(Hello. I am """ + username + u""". For more information about me, please send me a) ^[message](/u/""" + username +""")."""]
 
+
 # The template for each entry in the list of recent posts.
 #
 # {title} - will be replaced with the post's title.
 # {permalink} - will be replaced with the post's URL.
 # {score:d} - will be replaced with the posts's current score
 responseEntry = u"* [{title}]({permalink}) ^(({score:d} points)^)"
+
+
+# The templates for the bot's response to submitters with no prior posts. This
+# works the same as responseTemplates above, except that the {list} placeholder
+# is not used.
+#
+# In this example, there is only one template.
+newSubmitterResponseTemplates = [u"""**/u/{author} has no previous stories right now**. If you're from the future, you can **[search for more by {author}](http://www.reddit.com/r/""" + subreddit + u"""/search?q=author%3A{author}&sort=new&restrict_sr=on)**
+
+---
+^(Hello. I am """ + username + u""". For more information about me, please send me a) ^[message](/u/""" + username +""")."""]
