@@ -41,7 +41,9 @@ flairsToIgnore = ()
 # {list} - will be replaced by the actual list of posts
 # {author} - will be replaced by the author's username
 #
-# In this example, there is only one template.
+# In this example, there is only one template. If you don't want the bot to
+# respond to posts where the submitter has one or more previous submission, then
+# leave this as an empty list ([]).
 responseTemplates = [u"""**Previous stories by /u/{author}:**
 
 {list}
@@ -64,7 +66,9 @@ responseEntry = u"* [{title}]({permalink}) ^(({score:d} points)^)"
 # works the same as responseTemplates above, except that the {list} placeholder
 # is not used.
 #
-# In this example, there is only one template.
+# In this example, there is only one template. If you don't want the bot to
+# respond to posts where the submitter has no previous submissions, then
+# leave this as an empty list ([]).
 newSubmitterResponseTemplates = [u"""**/u/{author} has no previous stories right now**. If you're from the future, you can **[search for more by {author}](http://www.reddit.com/r/""" + subreddit + u"""/search?q=author%3A{author}&sort=new&restrict_sr=on)**
 
 ---

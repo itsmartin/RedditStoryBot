@@ -134,22 +134,30 @@ class RedditStoryBot:
                     author = submission.author))
 
         if others:
-            template = random.choice(config.responseTemplates)
+            if len(config.responseTemplates > 0):
+                template = random.choice(config.responseTemplates)
 
-            reply = template.format(
-                    author = submission.author.name,
-                    list = '\n'.join([config.responseEntry.format(
-                            title = s.title,
-                            permalink = s.permalink,
-                            score = s.score) for s in others])
-            )
+                reply = template.format(
+                        author = submission.author.name,
+                        list = '\n'.join([config.responseEntry.format(
+                                title = s.title,
+                                permalink = s.permalink,
+                                score = s.score) for s in others])
+                )
+            else:
+                self.log.info("No template found, not posting.")
+                return
 
         else:
-            template = random.choice(config.newSubmitterResponseTemplates)
+            if len(config.newSubmitterResponseTemplates > 0):
+                template = random.choice(config.newSubmitterResponseTemplates)
 
-            reply = template.format(
-                    author = submission.author.name
-            )
+                reply = template.format(
+                        author = submission.author.name
+                )
+            else:
+                self.log.info("No template found, not posting.")
+                return
 
 
         self.log.info("Posting response to {}".format(submission.id))
