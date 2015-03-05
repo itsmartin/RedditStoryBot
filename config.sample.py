@@ -51,7 +51,7 @@ responseTemplates = [u"""**Previous stories by /u/{author}:**
 **[Search for more by {author}](http://www.reddit.com/r/""" + subreddit + u"""/search?q=author%3A{author}&sort=new&restrict_sr=on)**
 
 ---
-^(Hello. I am """ + username + u""". For more information about me, please send me a) ^[message](/u/""" + username +""")."""]
+^({greeting}. I am """ + username + u""". For more information about me, please send me a) ^[message](/u/""" + username +""")."""]
 
 
 # The template for each entry in the list of recent posts.
@@ -72,4 +72,16 @@ responseEntry = u"* [{title}]({permalink}) ^(({score:d} points)^)"
 newSubmitterResponseTemplates = [u"""**/u/{author} has no previous stories right now**. If you're from the future, you can **[search for more by {author}](http://www.reddit.com/r/""" + subreddit + u"""/search?q=author%3A{author}&sort=new&restrict_sr=on)**
 
 ---
-^(Hello. I am """ + username + u""". For more information about me, please send me a) ^[message](/u/""" + username +""")."""]
+^({greeting}. I am """ + username + u""". For more information about me, please send me a) ^[message](/u/""" + username +""")."""]
+
+
+# This option specifies a list of additional substitutions that can be used
+# to replace placeholders in the template. It should be a dictionary, mapping
+# placeholders to the text they will be replaced by.
+# If the replacement text is a list, as in the example below, then one item
+# from the list will be chosen at random.
+#
+# In this example, {greeting} will be replaced with a random greeting.
+responseSubstitutions = {
+        'greeting': ["Hello", "Aloha", "Hi"]
+}

@@ -53,7 +53,7 @@ class RedditStoryBot:
         self.reddit = praw.Reddit(user_agent = config.userAgent)
         self.subreddit = self.reddit.get_subreddit(config.subreddit)
 
-        self.reddit.login(config.username,config.password)
+        #self.reddit.login(config.username,config.password)
 
 
     def main(self):
@@ -133,17 +133,19 @@ class RedditStoryBot:
                     n = len(others),
                     author = submission.author))
 
+        substitutions = {'author': submission.author.name}
+
         if others:
             if len(config.responseTemplates) > 0:
                 template = random.choice(config.responseTemplates)
 
-                reply = template.format(
-                        author = submission.author.name,
-                        list = '\n'.join([config.responseEntry.format(
-                                title = s.title,
-                                permalink = s.permalink,
-                                score = s.score) for s in others])
+                substitutions['list'] = '\n'.join(
+                        [config.responseEntry.format(
+                        title = s.title,
+                        permalink = s.permalink,
+                        score = s.score) for s in others]
                 )
+
             else:
                 self.log.info("No template found, not posting.")
                 return
@@ -151,14 +153,16 @@ class RedditStoryBot:
         else:
             if len(config.newSubmitterResponseTemplates) > 0:
                 template = random.choice(config.newSubmitterResponseTemplates)
-
-                reply = template.format(
-                        author = submission.author.name
-                )
             else:
                 self.log.info("No template found, not posting.")
                 return
 
+        for key, value in config.responseSubstitutions.items():
+            if type(value) is list:
+                value = random.choice(value)
+            substitutions[key]=value
+
+        reply = template.format_map(substitutions)
 
         self.log.info("Posting response to {}".format(submission.id))
 
