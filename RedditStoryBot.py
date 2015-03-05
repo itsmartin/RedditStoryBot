@@ -133,7 +133,11 @@ class RedditStoryBot:
                     n = len(others),
                     author = submission.author))
 
-        substitutions = {'author': submission.author.name}
+        substitutions = {
+                'author': submission.author.name,
+                'botname': config.username,
+                'subreddit': config.subreddit
+        }
 
         if others:
             if len(config.responseTemplates) > 0:

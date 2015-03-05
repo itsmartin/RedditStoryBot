@@ -40,6 +40,8 @@ flairsToIgnore = ()
 #
 # {list} - will be replaced by the actual list of posts
 # {author} - will be replaced by the author's username
+# {botname} - will be replaced by the bot's username (as configured above)
+# {subreddit} - will be replaced by the name of the subreddit (as configured above)
 #
 # In this example, there is only one template. If you don't want the bot to
 # respond to posts where the submitter has one or more previous submission, then
@@ -48,10 +50,10 @@ responseTemplates = [u"""**Previous stories by /u/{author}:**
 
 {list}
 
-**[Search for more by {author}](http://www.reddit.com/r/""" + subreddit + u"""/search?q=author%3A{author}&sort=new&restrict_sr=on)**
+**[Search for more by {author}](http://www.reddit.com/r/{subreddit}/search?q=author%3A{author}&sort=new&restrict_sr=on)**
 
 ---
-^({greeting}. I am """ + username + u""". For more information about me, please send me a) ^[message](/u/""" + username +""")."""]
+^({greeting}. I am {botname}. For more information about me, please send me a) ^[message](/u/{botname})."""]
 
 
 # The template for each entry in the list of recent posts.
@@ -69,10 +71,10 @@ responseEntry = u"* [{title}]({permalink}) ^(({score:d} points)^)"
 # In this example, there is only one template. If you don't want the bot to
 # respond to posts where the submitter has no previous submissions, then
 # leave this as an empty list ([]).
-newSubmitterResponseTemplates = [u"""**/u/{author} has no previous stories right now**. If you're from the future, you can **[search for more by {author}](http://www.reddit.com/r/""" + subreddit + u"""/search?q=author%3A{author}&sort=new&restrict_sr=on)**
+newSubmitterResponseTemplates = [u"""**/u/{author} has no previous stories right now**. If you're from the future, you can **[search for more by {author}](http://www.reddit.com/r/{subreddit}/search?q=author%3A{author}&sort=new&restrict_sr=on)**
 
 ---
-^({greeting}. I am """ + username + u""". For more information about me, please send me a) ^[message](/u/""" + username +""")."""]
+^({greeting}. I am {botname}. For more information about me, please send me a) ^[message](/u/{botname})."""]
 
 
 # This option specifies a list of additional substitutions that can be used
