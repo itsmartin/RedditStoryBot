@@ -53,7 +53,7 @@ class RedditStoryBot:
         self.reddit = praw.Reddit(user_agent = config.userAgent)
         self.subreddit = self.reddit.get_subreddit(config.subreddit)
 
-        #self.reddit.login(config.username,config.password)
+        self.reddit.login(config.username,config.password)
 
 
     def main(self):
