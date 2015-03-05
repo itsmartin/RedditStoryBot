@@ -134,7 +134,7 @@ class RedditStoryBot:
                     author = submission.author))
 
         if others:
-            if len(config.responseTemplates > 0):
+            if len(config.responseTemplates) > 0:
                 template = random.choice(config.responseTemplates)
 
                 reply = template.format(
@@ -149,7 +149,7 @@ class RedditStoryBot:
                 return
 
         else:
-            if len(config.newSubmitterResponseTemplates > 0):
+            if len(config.newSubmitterResponseTemplates) > 0:
                 template = random.choice(config.newSubmitterResponseTemplates)
 
                 reply = template.format(
