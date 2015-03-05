@@ -158,7 +158,7 @@ class RedditStoryBot:
                 return
 
         for key, value in config.responseSubstitutions.items():
-            if type(value) is list:
+            if type(value) in (tuple, list):
                 value = random.choice(value)
             substitutions[key]=value
 
