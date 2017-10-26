@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import praw, logging, config, sqlite3, time, random, urllib, requests
 
 class RedditStoryBot:
