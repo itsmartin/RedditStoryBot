@@ -11,6 +11,12 @@ subreddit = u"bottesting"
 # How many posts in /r/subreddit/new will the bot go back, every time it runs?
 newLimit = 20
 
+# Client ID and Client Secret for the reddit API.
+# See https://www.reddit.com/prefs/apps/ to set this up.
+clientId = u"editme"
+clientSecret = u"editme"
+
+
 # Username and password that the bot will use to log in to reddit:
 username = u"username"
 password = u"password"

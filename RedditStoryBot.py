@@ -52,10 +52,13 @@ class RedditStoryBot:
         """Set up PRAW objects for reddit and the appropriate subreddit, and
         log in.
         """
-        self.reddit = praw.Reddit(user_agent = config.userAgent)
-        self.subreddit = self.reddit.get_subreddit(config.subreddit)
+        self.reddit = praw.Reddit(client_id=config.clientId,
+                                  client_secret=config.clientSecret,
+                                  password=config.password,
+                                  user_agent=config.userAgent,
+                                  username=config.username)
 
-        self.reddit.login(config.username,config.password)
+        self.subreddit = self.reddit.subreddit(config.subreddit)
 
 
     def main(self):
@@ -80,7 +83,7 @@ class RedditStoryBot:
         self.log.info("Checking for new submissions in {subreddit}"
                 .format(subreddit = subreddit.display_name))
 
-        for submission in subreddit.get_new(limit=config.newLimit):
+        for submission in subreddit.new(limit=config.newLimit):
             self.log.debug(
                     "Found submission {id} ({cssClass}): \"{title}\", by {author}"
                     .format(
@@ -174,13 +177,10 @@ class RedditStoryBot:
 
         if (config.actuallyPost):
             try:
-                submission.add_comment(reply)
+                submission.reply(reply)
                 self.log.info("Posted")
                 return True
-            except praw.errors.RateLimitExceeded:
-                self.log.info("Posting failed, rate limit exceeded")
-                return False
-            except praw.errors.APIException as err:
+            except praw.exceptions.APIException as err:
                 if hasattr(err, "error_type") and err.error_type == 'TOO_OLD':
                     self.log.info("APIException: TOO_OLD")
                 else:
