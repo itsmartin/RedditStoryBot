@@ -1,44 +1,40 @@
+---
 # Configuration for RedditStoryBot
 
-# This value determines whether the bot will actually post, or just log what it
-# would have posted to the console. Change this to True only when you're happy
-# with the bot's output.
-actuallyPost = False
-
 # The name of the subreddit that the bot will run on:
-subreddit = u"bottesting"
+
+subreddit:          "bottesting"
 
 # How many posts in /r/subreddit/new will the bot go back, every time it runs?
-newLimit = 20
+
+new_limit:          20
 
 # Client ID and Client Secret for the reddit API.
 # See https://www.reddit.com/prefs/apps/ to set this up.
-clientId = u"editme"
-clientSecret = u"editme"
 
+client_id:          "editme"
+client_secret:      "editme"
 
 # Username and password that the bot will use to log in to reddit:
-username = u"username"
-password = u"password"
 
-# The user agent that the bot will identify itself as:
-userAgent = "RedditStoryBot"
+username:           "username"
+password:           "password"
 
-# Names for the bot's log and database files (change these if you plan to
-# run multiple bots in the same folder):
-logFile = "RedditStoryBot.log"
-databaseFile = "RedditStoryBot.db"
+# Path to a directory where the bot will store its persistent data:
 
-# The identifier the bot will use when logging events
-logId = "RedditStoryBot"
+data_path:          "/data/storybot"
 
-# How long the bot should sleep between runs (in seconds). (600 = 10 minutes)
-sleepTime = 600
+# How long the bot should sleep between runs (in minutes)
 
-# A list of flairs which the bot will ignore. Include None if you want the bot
+sleep_time:         10
+
+# A list of flairs which the bot will ignore. Include null if you want the bot
 # to ignore unflaired posts too. Leave this empty if the bot should handle all
 # posts.
-flairsToIgnore = ()
+
+flairs_to_ignore:
+  - "meta"
+  - null
 
 # The templates for the bot's response. It should be a list of possible response
 # formats, one of which (randomly chosen) will be posted by the bot. Each
@@ -52,23 +48,34 @@ flairsToIgnore = ()
 # In this example, there is only one template. If you don't want the bot to
 # respond to posts where the submitter has one or more previous submission, then
 # leave this as an empty list ([]).
-responseTemplates = [u"""**Previous stories by /u/{author}:**
+#
+# See https://yaml-multiline.info/ for some helpful information about formatting
+# YAML multiline strings.
 
-{list}
+response_templates:
+  - |-
+    **Previous stories by /u/{author}:**
 
-**[Search for more by {author}](http://www.reddit.com/r/{subreddit}/search?q=author%3A{author}&sort=new&restrict_sr=on)**
+    {list}
 
----
-^({greeting}. I am {botname}. For more information about me, please send me a) ^[message](/u/{botname})."""]
+    **[Search for more by {author}](http://www.reddit.com/r/{subreddit}/search?q=author%3A{author}&sort=new&restrict_sr=on)**
 
+    ---
+    ^({greeting}. I am {botname}. For more information about me, please send me a) ^[message](/u/{botname})."
 
 # The template for each entry in the list of recent posts.
 #
 # {title} - will be replaced with the post's title.
 # {permalink} - will be replaced with the post's URL.
 # {score:d} - will be replaced with the posts's current score
-responseEntry = u"* [{title}]({permalink}) ^(({score:d} points)^)"
 
+response_entry: "* [{title}]({permalink}) ^(({score:d} points)^)"
+
+# The text to add to the end of the list if there isn't room to post them all.
+#
+# {count} - will be replaced with the number of posts that were dropped from the list
+
+response_too_long: "* ...and {count} more"
 
 # The templates for the bot's response to submitters with no prior posts. This
 # works the same as responseTemplates above, except that the {list} placeholder
@@ -77,11 +84,13 @@ responseEntry = u"* [{title}]({permalink}) ^(({score:d} points)^)"
 # In this example, there is only one template. If you don't want the bot to
 # respond to posts where the submitter has no previous submissions, then
 # leave this as an empty list ([]).
-newSubmitterResponseTemplates = [u"""**/u/{author} has no previous stories right now**. If you're from the future, you can **[search for more by {author}](http://www.reddit.com/r/{subreddit}/search?q=author%3A{author}&sort=new&restrict_sr=on)**
 
----
-^({greeting}. I am {botname}. For more information about me, please send me a) ^[message](/u/{botname})."""]
+new_submitter_response_templates:
+  - |-
+    **/u/{author} has no previous stories right now**. If you're from the future, you can **[search for more by {author}](http://www.reddit.com/r/{subreddit}/search?q=author%3A{author}&sort=new&restrict_sr=on)**
 
+    ---
+    ^({greeting}. I am {botname}. For more information about me, please send me a) ^[message](/u/{botname})."
 
 # This option specifies a list of additional substitutions that can be used
 # to replace placeholders in the template. It should be a dictionary, mapping
@@ -90,6 +99,8 @@ newSubmitterResponseTemplates = [u"""**/u/{author} has no previous stories right
 # from the list will be chosen at random.
 #
 # In this example, {greeting} will be replaced with a random greeting.
-responseSubstitutions = {
-        'greeting': ["Hello", "Aloha", "Hi"]
-}
+response_substitutions:
+  - greeting:
+    - "Hello"
+    - "Aloha"
+    - "Hi"

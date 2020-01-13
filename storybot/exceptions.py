@@ -1,0 +1,2 @@
+class PostIgnored(Exception):
+    pass
